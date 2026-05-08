@@ -119,8 +119,8 @@
       "niche_key": "beauty",
       "category": "Bijoux",
       "format": "Reels · TikTok",
-      "angle": "Unboxing · Lifestyle · Produit",
-      "result": "+32% d'engagement"
+      "angle": "Bijou permanent · Storytelling",
+      "result": "Désirabilité produit"
     },
     {
       "id": "melodie-hair",
@@ -129,7 +129,7 @@
       "category": "Beauté",
       "format": "Reels · Stories",
       "angle": "Transformation · Avant/Après",
-      "result": "+41% de prises de RDV"
+      "result": "Prises de RDV"
     },
     {
       "id": "le-recif",
@@ -138,7 +138,7 @@
       "category": "Restaurant",
       "format": "Reels · TikTok",
       "angle": "Ambiance · Food · Expérience",
-      "result": "+28% de visites profil"
+      "result": "Trafic restaurant"
     },
     {
       "id": "esn",
@@ -147,25 +147,70 @@
       "category": "Nutrition",
       "format": "Reels · Ads",
       "angle": "Démo produit · Routine",
-      "result": "+25% ventes en ligne"
+      "result": "Conversion ventes"
     },
     {
-      "id": "azurial",
-      "brand": "Azurial Clothing",
+      "id": "belle-rive",
+      "brand": "Belle Rive",
       "niche_key": "fashion",
       "category": "Mode",
-      "format": "Reels · Photos",
-      "angle": "Lookbook · Lifestyle",
-      "result": "+19% de conversions"
+      "format": "Reels · Try-on",
+      "angle": "Try-on haul · Athleisure",
+      "result": "Lookbook activé"
     },
     {
-      "id": "azuria-skincare",
-      "brand": "Azuria Skincare",
+      "id": "boulangerie-cornu",
+      "brand": "Boulangerie Cornu",
+      "niche_key": "food",
+      "category": "Boulangerie",
+      "format": "Reels · TikTok",
+      "angle": "Dégustation famille",
+      "result": "Awareness locale"
+    },
+    {
+      "id": "kurl-coiffure",
+      "brand": "Kurl Coiffure",
       "niche_key": "beauty",
-      "category": "Skincare",
-      "format": "Reels · Stories",
-      "angle": "Routine · Texture · Avis",
-      "result": "+38% d'engagement"
+      "category": "Coiffure",
+      "format": "Reels · TikTok",
+      "angle": "Coloration · Routine salon",
+      "result": "Visibilité salon"
+    },
+    {
+      "id": "dark-lash",
+      "brand": "Dark Lash",
+      "niche_key": "beauty",
+      "category": "Beauté",
+      "format": "Reels · Ads",
+      "angle": "Avis · Natural look",
+      "result": "Engagement audience"
+    },
+    {
+      "id": "bowl-cake",
+      "brand": "Recette Bowl Cake",
+      "niche_key": "food",
+      "category": "Recette",
+      "format": "Reels · TikTok",
+      "angle": "Recette express · Whey",
+      "result": "Saves & shares"
+    },
+    {
+      "id": "magic-world",
+      "brand": "Magic World",
+      "niche_key": "lifestyle",
+      "category": "Loisir",
+      "format": "Reels · TikTok",
+      "angle": "Sensoriel · Soirée",
+      "result": "+15K vues"
+    },
+    {
+      "id": "atelier-couture",
+      "brand": "L'Atelier Couture",
+      "niche_key": "lifestyle",
+      "category": "Artisan",
+      "format": "Reels · TikTok",
+      "angle": "Mise en avant boutique",
+      "result": "Trafic boutique"
     }
   ],
   "services_data": [

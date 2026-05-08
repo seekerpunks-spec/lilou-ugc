@@ -1,15 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion, useReducedMotion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/cn";
 import { Icon } from "./Icon";
-import { images, type ProjectImageKey } from "@/data/images";
+import { projectMedia, type ProjectMediaKey } from "@/data/images";
+import { VideoCard } from "./VideoCard";
 
 interface ProjectItem {
-  id: ProjectImageKey;
+  id: ProjectMediaKey;
   brand: string;
   niche_key: string;
   category: string;
@@ -91,7 +91,7 @@ export function Projects() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {filtered.map((p, i) => {
-              const photo = images.projects[p.id];
+              const media = projectMedia[p.id];
               return (
                 <motion.article
                   key={p.id}
@@ -106,16 +106,8 @@ export function Projects() {
                   }}
                   className="hover-rise group flex flex-col gap-0 overflow-hidden rounded-[var(--radius-card)] border border-line bg-paper shadow-soft hover:shadow-soft-lg"
                 >
-                  {/* Square image */}
-                  <div className="relative aspect-square w-full overflow-hidden">
-                    <Image
-                      src={photo.src}
-                      alt={photo.alt}
-                      fill
-                      sizes="(max-width: 640px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                  </div>
+                  {/* Video preview */}
+                  <VideoCard media={media} aspect="square" />
 
                   {/* Meta */}
                   <div className="flex flex-col gap-3.5 px-5 py-5 sm:px-6 sm:py-6">
