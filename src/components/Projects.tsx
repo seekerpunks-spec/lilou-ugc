@@ -2,12 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  type PanInfo,
-} from "motion/react";
+import { motion, useReducedMotion, type PanInfo } from "motion/react";
 import { cn } from "@/lib/cn";
 import { Icon } from "./Icon";
 import { projectMedia, type ProjectMediaKey } from "@/data/images";
@@ -21,6 +16,14 @@ interface ProjectItem {
   format: string;
   angle: string;
   result: string;
+}
+
+type Slot = "left" | "center" | "right";
+
+interface VisibleEntry {
+  item: ProjectItem;
+  slot: Slot;
+  idx: number;
 }
 
 const SWIPE_THRESHOLD = 60;
@@ -49,15 +52,32 @@ export function Projects() {
     [active, projects],
   );
 
-  /* index + direction (for slide animation) */
   const [[index, dir], setState] = useState<[number, 1 | -1]>([0, 1]);
-  // Reset on filter change
+
   useEffect(() => {
     setState([0, 1]);
   }, [active]);
 
   const safeIndex = filtered.length === 0 ? 0 : index % filtered.length;
-  const current = filtered[safeIndex];
+
+  const visibleItems = useMemo<VisibleEntry[]>(() => {
+    const len = filtered.length;
+    if (len === 0) return [];
+    if (len === 1) return [{ item: filtered[0], slot: "center", idx: 0 }];
+    const prevIdx = (safeIndex - 1 + len) % len;
+    const nextIdx = (safeIndex + 1) % len;
+    if (len === 2) {
+      return [
+        { item: filtered[safeIndex], slot: "center", idx: safeIndex },
+        { item: filtered[nextIdx], slot: "right", idx: nextIdx },
+      ];
+    }
+    return [
+      { item: filtered[prevIdx], slot: "left", idx: prevIdx },
+      { item: filtered[safeIndex], slot: "center", idx: safeIndex },
+      { item: filtered[nextIdx], slot: "right", idx: nextIdx },
+    ];
+  }, [filtered, safeIndex]);
 
   const goTo = (next: number, direction: 1 | -1) => {
     if (filtered.length === 0) return;
@@ -94,6 +114,8 @@ export function Projects() {
     angle: string;
     result: string;
   };
+
+  const current = filtered[safeIndex];
 
   return (
     <section
@@ -137,14 +159,13 @@ export function Projects() {
           })}
         </div>
 
-        {/* Carousel stage */}
         {filtered.length === 0 ? (
           <div className="flex h-[520px] items-center justify-center text-mocha">
             <p>—</p>
           </div>
         ) : (
           <div className="relative">
-            {/* Counter */}
+            {/* Counter + brand */}
             <div className="mb-5 flex items-center justify-between gap-4">
               <span className="font-serif text-sm italic text-mocha">
                 <span className="text-coral">{safeIndex + 1}</span>
@@ -156,76 +177,97 @@ export function Projects() {
               </span>
             </div>
 
-            {/* Stage with peek of neighbours */}
+            {/* Stage */}
             <div className="relative flex items-center justify-center">
               <CarouselArrow
                 direction="prev"
                 onClick={prev}
                 disabled={filtered.length < 2}
-                className="absolute left-0 z-20 hidden -translate-x-2 sm:flex md:-translate-x-6"
+                className="absolute left-2 z-30 hidden md:flex"
               />
 
-              <div className="relative w-full max-w-[440px] overflow-visible">
-                <AnimatePresence mode="wait" custom={dir}>
-                  <motion.article
-                    key={current.id}
-                    custom={dir}
-                    drag={reduce ? false : "x"}
-                    dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={0.18}
-                    onDragEnd={onDragEnd}
-                    initial={
-                      reduce
-                        ? { opacity: 0 }
-                        : { x: dir * 80, opacity: 0, scale: 0.97 }
-                    }
-                    animate={{ x: 0, opacity: 1, scale: 1 }}
-                    exit={
-                      reduce
-                        ? { opacity: 0 }
-                        : { x: dir * -80, opacity: 0, scale: 0.97 }
-                    }
-                    transition={{
-                      type: "spring",
-                      stiffness: 260,
-                      damping: 30,
-                      mass: 0.7,
-                    }}
-                    className="relative flex cursor-grab flex-col gap-0 overflow-hidden rounded-[var(--radius-card-lg)] border border-line bg-paper shadow-soft-lg active:cursor-grabbing"
-                  >
-                    <VideoCard
-                      media={projectMedia[current.id]}
-                      aspect="portrait"
-                    />
+              <div className="relative h-[640px] w-full sm:h-[680px]">
+                {visibleItems.map(({ item, slot, idx }) => {
+                  const isCenter = slot === "center";
+                  // x offset: center=-50%, left=-130%, right=30%
+                  const targetX =
+                    slot === "left"
+                      ? "-130%"
+                      : slot === "right"
+                        ? "30%"
+                        : "-50%";
+                  return (
+                    <motion.article
+                      key={item.id}
+                      className="absolute top-0 w-[280px] overflow-hidden rounded-[var(--radius-card-lg)] border border-line bg-paper shadow-soft-lg sm:w-[340px]"
+                      style={{ left: "50%" }}
+                      initial={{
+                        x: dir === 1 ? "70%" : "-170%",
+                        opacity: 0,
+                        scale: 0.85,
+                      }}
+                      animate={{
+                        x: targetX,
+                        scale: isCenter ? 1 : 0.86,
+                        opacity: isCenter ? 1 : 0.4,
+                        zIndex: isCenter ? 20 : 10,
+                        filter: isCenter ? "blur(0px)" : "blur(1.5px)",
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 240,
+                        damping: 32,
+                        mass: 0.7,
+                      }}
+                      drag={isCenter && !reduce ? "x" : false}
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={0.18}
+                      onDragEnd={isCenter ? onDragEnd : undefined}
+                      onClick={
+                        isCenter
+                          ? undefined
+                          : () => goTo(idx, slot === "right" ? 1 : -1)
+                      }
+                    >
+                      <VideoCard
+                        media={projectMedia[item.id]}
+                        aspect="portrait"
+                        paused={!isCenter}
+                        audible={isCenter}
+                      />
 
-                    <div className="flex flex-col gap-3 px-6 py-6">
-                      <div className="flex items-center justify-between gap-3">
-                        <h3 className="font-serif text-xl font-medium leading-tight text-espresso">
-                          {current.brand}
-                        </h3>
-                        <span className="rounded-full border border-line bg-shell px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-espresso/75">
-                          {current.category}
-                        </span>
+                      <div className="flex flex-col gap-3 px-5 py-5 sm:px-6 sm:py-5">
+                        <div className="flex items-center justify-between gap-3">
+                          <h3 className="font-serif text-[1.05rem] font-medium leading-tight text-espresso sm:text-[1.15rem]">
+                            {item.brand}
+                          </h3>
+                          <span className="rounded-full border border-line bg-shell px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-espresso/75">
+                            {item.category}
+                          </span>
+                        </div>
+                        <dl className="flex flex-col gap-1.5 text-[0.82rem]">
+                          <MetaRow
+                            label={labels.format}
+                            value={item.format}
+                          />
+                          <MetaRow label={labels.angle} value={item.angle} />
+                          <MetaRow
+                            label={labels.result}
+                            value={item.result}
+                            highlight
+                          />
+                        </dl>
                       </div>
-                      <dl className="flex flex-col gap-1.5 text-[0.85rem]">
-                        <MetaRow label={labels.format} value={current.format} />
-                        <MetaRow label={labels.angle} value={current.angle} />
-                        <MetaRow
-                          label={labels.result}
-                          value={current.result}
-                          highlight
-                        />
-                      </dl>
-                    </div>
-                  </motion.article>
-                </AnimatePresence>
+                    </motion.article>
+                  );
+                })}
               </div>
 
               <CarouselArrow
                 direction="next"
                 onClick={next}
                 disabled={filtered.length < 2}
-                className="absolute right-0 z-20 hidden translate-x-2 sm:flex md:translate-x-6"
+                className="absolute right-2 z-30 hidden md:flex"
               />
             </div>
 
@@ -249,7 +291,7 @@ export function Projects() {
             </div>
 
             {/* Mobile arrows */}
-            <div className="mt-6 flex items-center justify-center gap-3 sm:hidden">
+            <div className="mt-6 flex items-center justify-center gap-3 md:hidden">
               <CarouselArrow
                 direction="prev"
                 onClick={prev}

@@ -1,0 +1,7 @@
+.agent
+.claude
+SPEC.md
+README.md
+.git
+node_modules/.cache
+.next/cache

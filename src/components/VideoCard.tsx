@@ -3,7 +3,12 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import type { ProjectMedia } from "@/data/images";
-import { claimAudio, registerAudio, releaseAudio } from "@/lib/audio-coordinator";
+import {
+  claimAudio,
+  isAudioUnlocked,
+  registerAudio,
+  releaseAudio,
+} from "@/lib/audio-coordinator";
 import { cn } from "@/lib/cn";
 
 interface VideoCardProps {
@@ -15,21 +20,29 @@ interface VideoCardProps {
    *  - "square"    → 1/1, larger letterbox filled with blurred poster
    */
   aspect?: "reel" | "portrait" | "square";
+  /**
+   * Stays at its poster: no autoplay, no hover, no audio button.
+   */
+  paused?: boolean;
+  /**
+   * When true, attempts to autoplay with sound as soon as the card
+   * enters the viewport. Falls back to muted autoplay if the browser
+   * blocks unmuted autoplay (no prior user gesture).
+   */
+  audible?: boolean;
 }
 
-/**
- * Mobile-friendly video card:
- * - Static poster by default
- * - Plays muted/loop on hover (desktop) or in viewport (touch)
- * - 🔊/🔇 toggle in corner; only one card can be unmuted at a time
- * - Uses object-contain + blurred-poster backdrop so 9:16 videos
- *   never get cropped — entire frame stays visible.
- */
-export function VideoCard({ media, aspect = "portrait" }: VideoCardProps) {
+export function VideoCard({
+  media,
+  aspect = "portrait",
+  paused = false,
+  audible = false,
+}: VideoCardProps) {
   const ref = useRef<HTMLVideoElement | null>(null);
   const id = useId();
   const [isTouch, setIsTouch] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [userMuted, setUserMuted] = useState(false);
   const reduce = useReducedMotion();
 
   useEffect(() => {
@@ -37,22 +50,75 @@ export function VideoCard({ media, aspect = "portrait" }: VideoCardProps) {
     setIsTouch(!window.matchMedia("(hover: hover) and (pointer: fine)").matches);
   }, []);
 
-  /* Coordinator: forced mute when another card claims audio focus */
+  /* Audio coordinator: forced mute when another card claims focus */
   useEffect(() => {
     return registerAudio(id, (isActive) => {
-      if (!isActive) setMuted(true);
+      if (!isActive) {
+        setMuted(true);
+        const el = ref.current;
+        if (el) el.muted = true;
+      }
     });
   }, [id]);
 
-  /* Touch devices: play when intersecting */
+  /* When paused flips on, freeze on the poster */
   useEffect(() => {
-    if (!isTouch || reduce) return;
     const el = ref.current;
     if (!el) return;
+    if (paused) {
+      el.pause();
+      el.currentTime = 0;
+      el.muted = true;
+      setMuted(true);
+      setUserMuted(false);
+    }
+  }, [paused]);
+
+  /* Audible mode: try unmuted autoplay when in viewport */
+  useEffect(() => {
+    if (paused || !audible) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const tryPlayUnmuted = async () => {
+      try {
+        el.muted = false;
+        el.volume = 1;
+        await el.play();
+        setMuted(false);
+        claimAudio(id);
+      } catch {
+        // Browser blocked unmuted autoplay → fall back to muted
+        el.muted = true;
+        setMuted(true);
+        try {
+          await el.play();
+        } catch {
+          /* already paused or blocked */
+        }
+      }
+    };
+
+    const tryPlayMuted = async () => {
+      el.muted = true;
+      setMuted(true);
+      try {
+        await el.play();
+      } catch {
+        /* ignore */
+      }
+    };
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.play().catch(() => undefined);
+          if (userMuted) {
+            tryPlayMuted();
+          } else if (isAudioUnlocked()) {
+            tryPlayUnmuted();
+          } else {
+            tryPlayUnmuted(); // attempt; falls back to muted on rejection
+          }
         } else {
           el.pause();
         }
@@ -60,20 +126,26 @@ export function VideoCard({ media, aspect = "portrait" }: VideoCardProps) {
       { threshold: 0.5 },
     );
     io.observe(el);
-    return () => io.disconnect();
-  }, [isTouch, reduce]);
+    return () => {
+      io.disconnect();
+      el.pause();
+      el.muted = true;
+      setMuted(true);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [audible, paused, id]);
 
   /* Cleanup audio claim on unmount */
   useEffect(() => () => releaseAudio(id), [id]);
 
   const onEnter = () => {
-    if (reduce || isTouch) return;
+    if (reduce || isTouch || paused || audible) return;
     const el = ref.current;
     if (!el) return;
     if (el.paused) el.play().catch(() => undefined);
   };
   const onLeave = () => {
-    if (reduce || isTouch) return;
+    if (reduce || isTouch || paused || audible) return;
     const el = ref.current;
     if (!el) return;
     if (muted) el.pause();
@@ -85,12 +157,14 @@ export function VideoCard({ media, aspect = "portrait" }: VideoCardProps) {
     if (muted) {
       claimAudio(id);
       setMuted(false);
+      setUserMuted(false);
       el.muted = false;
       el.volume = 1;
       el.play().catch(() => undefined);
     } else {
       releaseAudio(id);
       setMuted(true);
+      setUserMuted(true);
       el.muted = true;
     }
   };
@@ -104,14 +178,10 @@ export function VideoCard({ media, aspect = "portrait" }: VideoCardProps) {
 
   return (
     <div
-      className={cn(
-        "relative w-full overflow-hidden bg-shell",
-        aspectClass,
-      )}
+      className={cn("relative w-full overflow-hidden bg-shell", aspectClass)}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
     >
-      {/* Blurred poster fills any letterbox gap */}
       {aspect !== "reel" && (
         <div
           aria-hidden
@@ -125,13 +195,8 @@ export function VideoCard({ media, aspect = "portrait" }: VideoCardProps) {
           }}
         />
       )}
-
-      {/* Soft warm overlay so blurred bg keeps the brand vibe */}
       {aspect !== "reel" && (
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-cream/30"
-        />
+        <div aria-hidden className="absolute inset-0 bg-cream/30" />
       )}
 
       <video
@@ -146,7 +211,6 @@ export function VideoCard({ media, aspect = "portrait" }: VideoCardProps) {
         className="relative h-full w-full object-contain"
       />
 
-      {/* Reel pill */}
       <span
         aria-hidden
         className="pointer-events-none absolute left-3 top-3 z-10 inline-flex h-6 items-center gap-1 rounded-full bg-paper/90 px-2.5 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-espresso shadow-soft"
@@ -157,21 +221,22 @@ export function VideoCard({ media, aspect = "portrait" }: VideoCardProps) {
         Reel
       </span>
 
-      {/* Sound toggle */}
-      <button
-        type="button"
-        onClick={toggleMute}
-        aria-label={muted ? "Activer le son" : "Couper le son"}
-        aria-pressed={!muted}
-        className={cn(
-          "absolute right-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full backdrop-blur transition-all",
-          muted
-            ? "bg-paper/85 text-espresso hover:bg-paper"
-            : "bg-coral text-paper shadow-soft",
-        )}
-      >
-        {muted ? <SpeakerOffIcon /> : <SpeakerOnIcon />}
-      </button>
+      {!paused && (
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={muted ? "Activer le son" : "Couper le son"}
+          aria-pressed={!muted}
+          className={cn(
+            "absolute right-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full backdrop-blur transition-all",
+            muted
+              ? "bg-paper/85 text-espresso hover:bg-paper"
+              : "bg-coral text-paper shadow-soft",
+          )}
+        >
+          {muted ? <SpeakerOffIcon /> : <SpeakerOnIcon />}
+        </button>
+      )}
     </div>
   );
 }
