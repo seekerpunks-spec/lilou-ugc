@@ -77,14 +77,14 @@
         "name": "Starter",
         "tagline": "Idéal pour tester l'UGC",
         "items": ["1 vidéo UGC", "15 à 30 sec", "1 révision", "Livraison en 5 jours"],
-        "price": "Sur devis"
+        "price": "200€"
       },
       {
         "id": "growth",
         "name": "Growth",
         "tagline": "Parfait pour booster vos conversions",
         "items": ["3 vidéos UGC", "15 à 30 sec", "2 révisions", "Livraison en 7 jours"],
-        "price": "Sur devis"
+        "price": "500€"
       },
       {
         "id": "monthly",

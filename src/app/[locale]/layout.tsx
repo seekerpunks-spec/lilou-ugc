@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter, Caveat } from "next/font/google";
+import { Playfair_Display, Inter, Caveat, Pinyon_Script } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale, getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -28,6 +28,13 @@ const script = Caveat({
   variable: "--font-script",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+const logo = Pinyon_Script({
+  variable: "--font-logo",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -74,7 +81,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${serif.variable} ${sans.variable} ${script.variable} antialiased`}
+      className={`${serif.variable} ${sans.variable} ${script.variable} ${logo.variable} antialiased`}
     >
       <body className="bg-cream text-espresso min-h-screen">
         <NextIntlClientProvider messages={messages}>

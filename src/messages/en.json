@@ -77,14 +77,14 @@
         "name": "Starter",
         "tagline": "Perfect to test UGC",
         "items": ["1 UGC video", "15 to 30 sec", "1 revision", "Delivered in 5 days"],
-        "price": "On request"
+        "price": "€200"
       },
       {
         "id": "growth",
         "name": "Growth",
         "tagline": "To boost your conversions",
         "items": ["3 UGC videos", "15 to 30 sec", "2 revisions", "Delivered in 7 days"],
-        "price": "On request"
+        "price": "€500"
       },
       {
         "id": "monthly",

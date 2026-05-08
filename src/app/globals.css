@@ -36,6 +36,7 @@
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
   --font-script: var(--font-script);
+  --font-logo: var(--font-logo);
 
   /* Radii */
   --radius-card: 18px;
@@ -76,6 +77,7 @@ body {
 /* Type system */
 .font-serif { font-family: var(--font-serif), Georgia, serif; }
 .font-script { font-family: var(--font-script), cursive; }
+.font-logo { font-family: var(--font-logo), "Pinyon Script", cursive; }
 
 /* Subtle film grain */
 .grain {

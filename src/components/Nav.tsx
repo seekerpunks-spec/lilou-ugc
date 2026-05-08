@@ -35,10 +35,12 @@ export function Nav() {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-5 py-4 sm:px-8 sm:py-5">
         <a
           href="#top"
-          className="flex flex-col leading-none text-espresso"
+          className="flex flex-col leading-[0.85] text-espresso"
           aria-label="Lilou Fronteau"
         >
-          <span className="font-script text-3xl text-espresso">Lilou</span>
+          <span className="font-logo text-[2.6rem] tracking-tight text-espresso">
+            Lilou
+          </span>
           <span className="font-sans text-[0.6rem] uppercase tracking-[0.42em] text-espresso/70">
             Fronteau
           </span>
