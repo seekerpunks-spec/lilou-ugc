@@ -106,8 +106,8 @@ export function Projects() {
                   }}
                   className="hover-rise group flex flex-col gap-0 overflow-hidden rounded-[var(--radius-card)] border border-line bg-paper shadow-soft hover:shadow-soft-lg"
                 >
-                  {/* Video preview */}
-                  <VideoCard media={media} aspect="square" />
+                  {/* Video preview — portrait keeps full Reel visible */}
+                  <VideoCard media={media} aspect="portrait" />
 
                   {/* Meta */}
                   <div className="flex flex-col gap-3.5 px-5 py-5 sm:px-6 sm:py-6">
