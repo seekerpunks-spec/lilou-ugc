@@ -1,8 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { motion, useReducedMotion, AnimatePresence } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type PanInfo,
+} from "motion/react";
 import { cn } from "@/lib/cn";
 import { Icon } from "./Icon";
 import { projectMedia, type ProjectMediaKey } from "@/data/images";
@@ -17,6 +22,8 @@ interface ProjectItem {
   angle: string;
   result: string;
 }
+
+const SWIPE_THRESHOLD = 60;
 
 export function Projects() {
   const t = useTranslations("projects");
@@ -34,10 +41,53 @@ export function Projects() {
 
   const [active, setActive] = useState<string>("all");
 
-  const filtered =
-    active === "all"
-      ? projects
-      : projects.filter((p) => p.niche_key === active);
+  const filtered = useMemo(
+    () =>
+      active === "all"
+        ? projects
+        : projects.filter((p) => p.niche_key === active),
+    [active, projects],
+  );
+
+  /* index + direction (for slide animation) */
+  const [[index, dir], setState] = useState<[number, 1 | -1]>([0, 1]);
+  // Reset on filter change
+  useEffect(() => {
+    setState([0, 1]);
+  }, [active]);
+
+  const safeIndex = filtered.length === 0 ? 0 : index % filtered.length;
+  const current = filtered[safeIndex];
+
+  const goTo = (next: number, direction: 1 | -1) => {
+    if (filtered.length === 0) return;
+    const wrapped = (next + filtered.length) % filtered.length;
+    setState([wrapped, direction]);
+  };
+  const prev = () => goTo(safeIndex - 1, -1);
+  const next = () => goTo(safeIndex + 1, 1);
+
+  /* keyboard nav */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLElement) {
+        const tag = e.target.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA") return;
+      }
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtered.length, safeIndex]);
+
+  const onDragEnd = (_: unknown, info: PanInfo) => {
+    const offset = info.offset.x;
+    const velocity = info.velocity.x;
+    if (offset < -SWIPE_THRESHOLD || velocity < -500) next();
+    else if (offset > SWIPE_THRESHOLD || velocity > 500) prev();
+  };
 
   const labels = t.raw("labels") as {
     format: string;
@@ -45,48 +95,12 @@ export function Projects() {
     result: string;
   };
 
-  /* Carousel scroll logic */
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(false);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const update = () => {
-      setCanPrev(el.scrollLeft > 8);
-      setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 8);
-    };
-    update();
-    el.addEventListener("scroll", update, { passive: true });
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => {
-      el.removeEventListener("scroll", update);
-      ro.disconnect();
-    };
-  }, [filtered.length]);
-
-  // Reset scroll on filter change
-  useEffect(() => {
-    trackRef.current?.scrollTo({ left: 0, behavior: "smooth" });
-  }, [active]);
-
-  const scrollBy = (dir: 1 | -1) => {
-    const el = trackRef.current;
-    if (!el) return;
-    // Scroll by ~one card width (first child width + gap)
-    const card = el.querySelector("[data-card]") as HTMLElement | null;
-    const step = (card?.offsetWidth ?? 280) + 24;
-    el.scrollBy({ left: step * dir, behavior: "smooth" });
-  };
-
   return (
     <section
       id="work"
       className="relative overflow-hidden bg-bone py-20 sm:py-28"
     >
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 sm:px-8">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-5 sm:px-8">
         {/* Header */}
         <div className="flex flex-col items-center gap-4 text-center">
           <span aria-hidden className="text-sun">
@@ -123,110 +137,143 @@ export function Projects() {
           })}
         </div>
 
-        {/* Carousel header — count + arrows (desktop) */}
-        <div className="flex items-end justify-between gap-4">
-          <span className="font-serif text-sm italic text-mocha">
-            <span className="text-coral">{filtered.length}</span>{" "}
-            {filtered.length > 1 ? "projets" : "projet"}
-          </span>
-          <div className="hidden items-center gap-2 sm:flex">
-            <CarouselArrow
-              direction="prev"
-              onClick={() => scrollBy(-1)}
-              disabled={!canPrev}
-            />
-            <CarouselArrow
-              direction="next"
-              onClick={() => scrollBy(1)}
-              disabled={!canNext}
-            />
+        {/* Carousel stage */}
+        {filtered.length === 0 ? (
+          <div className="flex h-[520px] items-center justify-center text-mocha">
+            <p>—</p>
           </div>
-        </div>
-      </div>
+        ) : (
+          <div className="relative">
+            {/* Counter */}
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <span className="font-serif text-sm italic text-mocha">
+                <span className="text-coral">{safeIndex + 1}</span>
+                <span className="px-1 text-mocha/55">/</span>
+                {filtered.length}
+              </span>
+              <span className="font-script text-2xl text-coral">
+                {current?.brand}
+              </span>
+            </div>
 
-      {/* Track — full bleed on mobile, padded on desktop via inline style */}
-      <div className="relative mt-6">
-        <div
-          ref={trackRef}
-          className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4"
-          style={{
-            paddingLeft: "max(20px, calc((100vw - 1152px) / 2 + 32px))",
-            paddingRight: "max(20px, calc((100vw - 1152px) / 2 + 32px))",
-            scrollbarWidth: "none",
-          }}
-        >
-          <AnimatePresence mode="popLayout">
-            {filtered.map((p, i) => {
-              const media = projectMedia[p.id];
-              return (
-                <motion.article
-                  key={p.id}
-                  data-card
-                  layout
-                  initial={reduce ? false : { opacity: 0, y: 20 }}
-                  animate={reduce ? undefined : { opacity: 1, y: 0 }}
-                  exit={reduce ? undefined : { opacity: 0 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: (i % 4) * 0.04,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="group flex w-[78vw] sm:w-[340px] lg:w-[300px] shrink-0 snap-start flex-col gap-0 overflow-hidden rounded-[var(--radius-card)] border border-line bg-paper shadow-soft transition-shadow duration-500 hover:shadow-soft-lg"
-                >
-                  <VideoCard media={media} aspect="portrait" />
+            {/* Stage with peek of neighbours */}
+            <div className="relative flex items-center justify-center">
+              <CarouselArrow
+                direction="prev"
+                onClick={prev}
+                disabled={filtered.length < 2}
+                className="absolute left-0 z-20 hidden -translate-x-2 sm:flex md:-translate-x-6"
+              />
 
-                  <div className="flex flex-col gap-3 px-5 py-5 sm:px-6 sm:py-5">
-                    <div className="flex items-center justify-between gap-3">
-                      <h3 className="font-serif text-[1.1rem] font-medium leading-tight text-espresso">
-                        {p.brand}
-                      </h3>
-                      <span className="rounded-full border border-line bg-shell px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-espresso/75">
-                        {p.category}
-                      </span>
+              <div className="relative w-full max-w-[440px] overflow-visible">
+                <AnimatePresence mode="wait" custom={dir}>
+                  <motion.article
+                    key={current.id}
+                    custom={dir}
+                    drag={reduce ? false : "x"}
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.18}
+                    onDragEnd={onDragEnd}
+                    initial={
+                      reduce
+                        ? { opacity: 0 }
+                        : { x: dir * 80, opacity: 0, scale: 0.97 }
+                    }
+                    animate={{ x: 0, opacity: 1, scale: 1 }}
+                    exit={
+                      reduce
+                        ? { opacity: 0 }
+                        : { x: dir * -80, opacity: 0, scale: 0.97 }
+                    }
+                    transition={{
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 30,
+                      mass: 0.7,
+                    }}
+                    className="relative flex cursor-grab flex-col gap-0 overflow-hidden rounded-[var(--radius-card-lg)] border border-line bg-paper shadow-soft-lg active:cursor-grabbing"
+                  >
+                    <VideoCard
+                      media={projectMedia[current.id]}
+                      aspect="portrait"
+                    />
+
+                    <div className="flex flex-col gap-3 px-6 py-6">
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="font-serif text-xl font-medium leading-tight text-espresso">
+                          {current.brand}
+                        </h3>
+                        <span className="rounded-full border border-line bg-shell px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-espresso/75">
+                          {current.category}
+                        </span>
+                      </div>
+                      <dl className="flex flex-col gap-1.5 text-[0.85rem]">
+                        <MetaRow label={labels.format} value={current.format} />
+                        <MetaRow label={labels.angle} value={current.angle} />
+                        <MetaRow
+                          label={labels.result}
+                          value={current.result}
+                          highlight
+                        />
+                      </dl>
                     </div>
-                    <dl className="flex flex-col gap-1.5 text-[0.82rem]">
-                      <MetaRow label={labels.format} value={p.format} />
-                      <MetaRow label={labels.angle} value={p.angle} />
-                      <MetaRow
-                        label={labels.result}
-                        value={p.result}
-                        highlight
-                      />
-                    </dl>
-                  </div>
-                </motion.article>
-              );
-            })}
-          </AnimatePresence>
+                  </motion.article>
+                </AnimatePresence>
+              </div>
+
+              <CarouselArrow
+                direction="next"
+                onClick={next}
+                disabled={filtered.length < 2}
+                className="absolute right-0 z-20 hidden translate-x-2 sm:flex md:translate-x-6"
+              />
+            </div>
+
+            {/* Dot indicators */}
+            <div className="mt-7 flex items-center justify-center gap-1.5">
+              {filtered.map((p, i) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => goTo(i, i > safeIndex ? 1 : -1)}
+                  aria-label={`Aller au projet ${i + 1}`}
+                  aria-current={i === safeIndex}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all",
+                    i === safeIndex
+                      ? "w-6 bg-coral"
+                      : "w-1.5 bg-espresso/20 hover:bg-espresso/40",
+                  )}
+                />
+              ))}
+            </div>
+
+            {/* Mobile arrows */}
+            <div className="mt-6 flex items-center justify-center gap-3 sm:hidden">
+              <CarouselArrow
+                direction="prev"
+                onClick={prev}
+                disabled={filtered.length < 2}
+              />
+              <CarouselArrow
+                direction="next"
+                onClick={next}
+                disabled={filtered.length < 2}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* CTA */}
+        <div className="mt-4 flex items-center justify-center">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2.5 rounded-full bg-coral px-7 py-3.5 text-sm font-medium text-paper shadow-soft transition-all hover:-translate-y-0.5 hover:bg-coral-deep"
+          >
+            {t("more")}
+            <Icon name="arrow" className="h-3.5 w-3.5" />
+          </a>
         </div>
-
-        {/* Edge fades for visual carousel cue */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 hidden w-16 bg-gradient-to-r from-bone to-transparent sm:block"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 hidden w-16 bg-gradient-to-l from-bone to-transparent sm:block"
-        />
-      </div>
-
-      {/* Mobile swipe hint */}
-      <div className="mx-auto mt-2 flex w-full max-w-6xl items-center justify-center gap-2 px-5 sm:hidden">
-        <span className="text-[0.7rem] uppercase tracking-[0.28em] text-mocha/55">
-          ← swipe →
-        </span>
-      </div>
-
-      {/* CTA */}
-      <div className="mx-auto mt-10 flex w-full max-w-6xl items-center justify-center px-5">
-        <a
-          href="#contact"
-          className="inline-flex items-center gap-2.5 rounded-full bg-coral px-7 py-3.5 text-sm font-medium text-paper shadow-soft transition-all hover:-translate-y-0.5 hover:bg-coral-deep"
-        >
-          {t("more")}
-          <Icon name="arrow" className="h-3.5 w-3.5" />
-        </a>
       </div>
     </section>
   );
@@ -265,9 +312,15 @@ interface CarouselArrowProps {
   direction: "prev" | "next";
   onClick: () => void;
   disabled?: boolean;
+  className?: string;
 }
 
-function CarouselArrow({ direction, onClick, disabled }: CarouselArrowProps) {
+function CarouselArrow({
+  direction,
+  onClick,
+  disabled,
+  className,
+}: CarouselArrowProps) {
   return (
     <button
       type="button"
@@ -275,10 +328,11 @@ function CarouselArrow({ direction, onClick, disabled }: CarouselArrowProps) {
       disabled={disabled}
       aria-label={direction === "prev" ? "Précédent" : "Suivant"}
       className={cn(
-        "inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-paper text-espresso shadow-soft transition-all",
+        "inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-paper text-espresso shadow-soft transition-all",
         disabled
           ? "cursor-not-allowed opacity-40"
-          : "hover:-translate-y-0.5 hover:border-espresso/40",
+          : "hover:-translate-y-0.5 hover:border-espresso/40 hover:bg-cream",
+        className,
       )}
     >
       <svg
