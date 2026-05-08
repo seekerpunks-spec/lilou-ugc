@@ -2,80 +2,82 @@
 
 /*
   Lilou Fronteau · UGC Portfolio
-  Editorial Méditerranéen × Neon Underground
-  ----------------------------------------
-  Palette inspired by Côte d'Azur sunsets, terracotta, and the original
-  Canva neon-pink DNA, refined into an editorial palette.
+  ------------------------------
+  Editorial · Solar · Mediterranean · Premium
+  Soft cream, coral and terracotta palette. No neon, no dark.
 */
 
 @theme {
-  --color-sand: #f4ede0;
-  --color-sand-2: #ece2d0;
-  --color-cream: #faf6ee;
-  --color-ink: #1a1410;
-  --color-ink-soft: #3b332b;
-  --color-clay: #c75d3a;
-  --color-coral: #ff6b5b;
-  --color-neon: #ff2e7e;
-  --color-neon-soft: #ff77a8;
-  --color-sun: #f5b941;
-  --color-sea: #4a7c84;
-  --color-stone: #8a8076;
+  /* Backgrounds */
+  --color-cream: #fff4e6;
+  --color-bone: #faf4ec;
+  --color-shell: #f5ebdd;
+  --color-paper: #ffffff;
 
-  --font-editorial: var(--font-editorial);
+  /* Text */
+  --color-espresso: #2b1d18;
+  --color-espresso-soft: #4a3a32;
+  --color-mocha: #6b574c;
+  --color-warm-stone: #a99483;
+
+  /* Accents */
+  --color-coral: #ef6f6c;
+  --color-coral-soft: #f6a09d;
+  --color-coral-deep: #d65854;
+  --color-terracotta: #c96b4f;
+  --color-sun: #f7c948;
+  --color-olive: #8a9a5b;
+
+  /* Hairlines */
+  --color-line: #ebd9c2;
+  --color-line-soft: #f3e6d4;
+
+  /* Fonts */
+  --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
-  --font-hand: var(--font-hand);
-  /* Display alias: same as sans (Geist), used for tracked uppercase eyebrows */
-  --font-display: var(--font-sans);
+  --font-script: var(--font-script);
 
-  --radius-soft: 14px;
-  --radius-card: 22px;
+  /* Radii */
+  --radius-card: 18px;
+  --radius-card-lg: 28px;
   --radius-pill: 999px;
 
+  /* Easing */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
-  --animate-marquee: marquee 40s linear infinite;
-  --animate-marquee-slow: marquee 80s linear infinite;
-  --animate-glow: glow 3.6s ease-in-out infinite;
+  --animate-marquee: marquee 60s linear infinite;
   --animate-rise: rise 0.9s var(--ease-soft) both;
 
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
-  @keyframes glow {
-    0%, 100% { text-shadow: 0 0 24px rgba(255,46,126,.35), 0 0 48px rgba(255,46,126,.18); }
-    50% { text-shadow: 0 0 32px rgba(255,46,126,.55), 0 0 72px rgba(255,46,126,.25); }
-  }
   @keyframes rise {
-    from { opacity: 0; transform: translateY(28px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
 }
 
 :root {
   color-scheme: light;
-  --grain-opacity: 0.08;
 }
 
 html, body {
-  background: var(--color-sand);
-  color: var(--color-ink);
+  background: var(--color-cream);
+  color: var(--color-espresso);
 }
 
 body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Editorial italic display */
-.font-editorial { font-family: var(--font-editorial), Georgia, serif; }
-.font-hand { font-family: var(--font-hand), cursive; }
-.font-display { font-family: var(--font-display), system-ui, sans-serif; }
+/* Type system */
+.font-serif { font-family: var(--font-serif), Georgia, serif; }
+.font-script { font-family: var(--font-script), cursive; }
 
-/* Subtle film grain overlay shared by section backgrounds */
+/* Subtle film grain */
 .grain {
   position: relative;
 }
@@ -84,64 +86,56 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: var(--grain-opacity);
+  opacity: 0.05;
   mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-/* Marquee track */
+/* Soft card shadow */
+.shadow-soft {
+  box-shadow:
+    0 1px 2px rgba(43, 29, 24, 0.04),
+    0 8px 24px -12px rgba(43, 29, 24, 0.10);
+}
+.shadow-soft-lg {
+  box-shadow:
+    0 1px 2px rgba(43, 29, 24, 0.04),
+    0 18px 48px -22px rgba(43, 29, 24, 0.18);
+}
+
+/* Marquee */
 .marquee-track {
   display: flex;
   gap: 4rem;
   width: max-content;
   animation: var(--animate-marquee);
 }
-.marquee-track--slow { animation: var(--animate-marquee-slow); }
 .marquee-track:hover { animation-play-state: paused; }
 
-/* Big neon glow on display headings */
-.glow-neon {
-  color: var(--color-neon);
-  text-shadow:
-    0 0 18px rgba(255, 46, 126, 0.45),
-    0 0 36px rgba(255, 46, 126, 0.25),
-    0 0 72px rgba(255, 46, 126, 0.12);
-}
-
-/* Custom selection */
+/* Selection */
 ::selection {
-  background: var(--color-neon);
-  color: var(--color-cream);
+  background: var(--color-coral);
+  color: var(--color-paper);
 }
 
-/* Custom scrollbar (subtle) */
+/* Scrollbars */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(26, 20, 16, 0.18);
+  background: rgba(43, 29, 24, 0.16);
   border-radius: 999px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(26, 20, 16, 0.32); }
+::-webkit-scrollbar-thumb:hover { background: rgba(43, 29, 24, 0.3); }
 
-/* Smooth-scroll body when Lenis is active */
+/* Lenis */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
 
-/* Tilted polaroid utility */
-.polaroid {
-  background: var(--color-cream);
-  padding: 0.75rem 0.75rem 1.5rem 0.75rem;
-  border-radius: 6px;
-  box-shadow:
-    0 1px 2px rgba(26,20,16,.05),
-    0 12px 28px -10px rgba(26,20,16,.18);
-}
-
-/* Hover scale for video cards */
+/* Hover utility */
 @media (hover: hover) {
   .hover-rise { transition: transform 600ms var(--ease-soft), box-shadow 600ms var(--ease-soft); }
-  .hover-rise:hover { transform: translateY(-6px); }
+  .hover-rise:hover { transform: translateY(-3px); }
 }

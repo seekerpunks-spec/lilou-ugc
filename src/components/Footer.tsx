@@ -7,23 +7,21 @@ export function Footer() {
   const t = useTranslations("footer");
 
   return (
-    <footer className="border-t border-ink/10 bg-sand py-10">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-        <div className="flex flex-col gap-2">
-          <span className="font-editorial text-3xl italic text-ink">
-            Lilou Fronteau<span className="text-neon">.</span>
+    <footer className="relative bg-espresso py-10 text-cream">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <div className="flex flex-col">
+          <span className="font-script text-3xl text-cream">Lilou Fronteau</span>
+          <span className="text-[0.65rem] uppercase tracking-[0.32em] text-cream/65">
+            {t("tagline")}
           </span>
-          <span className="font-hand text-xl text-clay">{t("tagline")}</span>
         </div>
 
-        <div className="flex flex-col items-start gap-4 sm:items-end">
-          <div className="flex items-center gap-3 text-xs uppercase tracking-[0.28em] text-ink/55">
+        <div className="flex flex-col items-start gap-3 sm:items-end">
+          <div className="flex items-center gap-3 text-[0.65rem] uppercase tracking-[0.28em] text-cream/65">
             <span>{t("lang")}</span>
-            <LangSwitcher />
+            <LangSwitcher className="border-cream/20 bg-cream/10 text-cream" />
           </div>
-          <span className="font-display text-xs text-ink/45">
-            {t("copyright")}
-          </span>
+          <span className="text-[0.7rem] text-cream/55">{t("rights")}</span>
         </div>
       </div>
     </footer>

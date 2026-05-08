@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Geist, Caveat } from "next/font/google";
+import { Playfair_Display, Inter, Caveat } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale, getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -7,28 +7,27 @@ import { routing } from "@/i18n/routing";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { ScrollProgress } from "@/components/ScrollProgress";
-import { CursorFollower } from "@/components/CursorFollower";
 import { ReducedMotionProvider } from "@/components/ReducedMotionProvider";
 
-const editorial = Instrument_Serif({
-  variable: "--font-editorial",
+const serif = Playfair_Display({
+  variable: "--font-serif",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
 });
 
-const sans = Geist({
+const sans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
-const hand = Caveat({
-  variable: "--font-hand",
+const script = Caveat({
+  variable: "--font-script",
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -57,7 +56,7 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f4ede0",
+  themeColor: "#fff4e6",
 };
 
 export default async function LocaleLayout({
@@ -75,14 +74,12 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${editorial.variable} ${sans.variable} ${hand.variable} antialiased`}
+      className={`${serif.variable} ${sans.variable} ${script.variable} antialiased`}
     >
-      <body className="bg-sand text-ink min-h-screen">
+      <body className="bg-cream text-espresso min-h-screen">
         <NextIntlClientProvider messages={messages}>
           <ReducedMotionProvider>
             <SmoothScroll>
-              <ScrollProgress />
-              <CursorFollower />
               <Nav />
               <main>{children}</main>
               <Footer />

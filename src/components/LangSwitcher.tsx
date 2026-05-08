@@ -17,7 +17,7 @@ export function LangSwitcher({ className }: LangSwitcherProps) {
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border border-ink/10 bg-cream/60 p-1 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur",
+        "inline-flex items-center gap-0.5 rounded-full border border-line bg-paper/80 p-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] backdrop-blur",
         className,
       )}
     >
@@ -29,10 +29,10 @@ export function LangSwitcher({ className }: LangSwitcherProps) {
             type="button"
             onClick={() => router.replace(pathname, { locale: l })}
             className={cn(
-              "rounded-full px-3 py-1 transition-colors duration-300",
+              "rounded-full px-2.5 py-1 transition-colors duration-300",
               active
-                ? "bg-ink text-cream"
-                : "text-ink/60 hover:text-ink",
+                ? "bg-espresso text-paper"
+                : "text-espresso/55 hover:text-espresso",
             )}
             aria-pressed={active}
           >

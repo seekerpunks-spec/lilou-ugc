@@ -1,146 +1,209 @@
 {
   "meta": {
-    "title": "Lilou Fronteau — UGC Creator · French Riviera",
-    "description": "Authentic, scroll-stopping UGC for beauty, lifestyle and Mediterranean brands. Based in Hyères, France."
+    "title": "Lilou Fronteau — UGC Creator · Hyères, France",
+    "description": "UGC creator based in Hyères. Sun-soaked lifestyle video and photo for beauty, food, wellness, fashion and travel brands."
   },
   "nav": {
+    "about": "About",
     "work": "Work",
-    "process": "Process",
     "services": "Services",
     "contact": "Contact",
-    "bookCall": "Let's talk"
+    "cta": "Get in touch"
   },
   "hero": {
-    "kicker": "UGC Creator · 23 · Hyères 🌊",
-    "headline_a": "UGC that",
-    "headline_emph": "stops the scroll",
-    "headline_b": "from the French Riviera",
-    "sub": "Authentic video and photo for brands who want real, not advertorial. Mediterranean, polished, performance-led.",
-    "cta_primary": "See my work",
-    "cta_secondary": "Work with me",
-    "scroll": "Scroll"
+    "badge": "UGC Creator · Hyères, France",
+    "title_a": "Sun-soaked, natural UGC built to make people",
+    "title_emph": "want to buy.",
+    "sub": "Lilou Fronteau creates lifestyle videos and photos for beauty, food, wellness, fashion and travel brands.",
+    "chips": ["Authentic", "Camera-friendly", "TikTok / Reels / Ads"],
+    "cta_primary": "View my work",
+    "cta_secondary": "Get in touch",
+    "scroll_label": "Scroll"
   },
   "trustbar": {
-    "title": "Trusted by 20+ brands"
+    "label": "Trusted by"
   },
-  "bio": {
-    "tagline": "Hi, I'm Lilou.",
-    "p1": "23, based in Hyères on the French Riviera. I've spent the past two years building a signature that blends Mediterranean everyday authenticity with modern direct-response craft.",
-    "p2": "I shoot in French and English, with natural light, and I know how to turn a product into the hero of a 30-second story.",
-    "stat1_v": "20+",
-    "stat1_l": "brands",
-    "stat2_v": "FR · EN",
-    "stat2_l": "bilingual",
-    "stat3_v": "5d",
-    "stat3_l": "standard delivery",
-    "handnote": "with all my authenticity ✦"
+  "about": {
+    "kicker": "About",
+    "title": "About Lilou",
+    "p1": "I'm 23 and I live in Hyères, southern France. Passionate about content, I help brands connect with their audience through natural, authentic and effective visuals.",
+    "handnote": "Let's create content that converts ♡",
+    "niches_title": "I create content for brands in",
+    "niches": [
+      { "key": "beauty", "label": "Beauty" },
+      { "key": "wellness", "label": "Wellness" },
+      { "key": "food", "label": "Food" },
+      { "key": "fashion", "label": "Fashion" },
+      { "key": "travel", "label": "Travel" },
+      { "key": "lifestyle", "label": "Lifestyle" }
+    ],
+    "footer_strip": "Based in Hyères, available across France and internationally."
   },
-  "local": {
-    "kicker": "Chapter 01",
-    "title_a": "Local",
-    "title_emph": "Heroes",
-    "title_b": ".",
-    "lede": "Riviera businesses and craftspeople I've helped show up online. Restaurants, salons, bakeries — content shot on location, in the room."
-  },
-  "brands": {
-    "kicker": "Chapter 02",
-    "title_a": "Brand",
-    "title_emph": "Collabs",
-    "title_b": ".",
-    "lede": "DTC e-commerce, French and international. Product demos, testimonials, hooks for paid social campaigns."
-  },
-  "testimonials": {
-    "kicker": "Chapter 03",
-    "title_a": "What",
-    "title_emph": "brands say",
-    "title_b": ".",
-    "note": "Illustrative quotes · real ones lock in with the first campaign"
-  },
-  "process": {
-    "kicker": "How we work",
-    "title": "From brief to delivery, in 4 beats.",
-    "steps": [
-      {
-        "n": "01",
-        "t": "Brief & quote",
-        "d": "We chat by email or video call. I learn your product, audience, goals. You get a clear quote and a timeline."
-      },
-      {
-        "n": "02",
-        "t": "Script & mood",
-        "d": "I propose 1–2 angles with hooks and direct-response structure. You sign off before we shoot."
-      },
-      {
-        "n": "03",
-        "t": "Shoot",
-        "d": "I shoot in natural light, on your product, with pro gear. You don't lift a finger."
-      },
-      {
-        "n": "04",
-        "t": "Delivery & feedback",
-        "d": "Final cut in 5 days. One revision included, usage rights defined upfront."
-      }
-    ]
+  "projects": {
+    "kicker": "Work",
+    "title": "Selected projects",
+    "sub": "Authentic collaborations — content that grabs attention and drives results.",
+    "filter_all": "All",
+    "labels": {
+      "format": "Format",
+      "angle": "Angle",
+      "result": "Result"
+    },
+    "more": "See more projects"
   },
   "services": {
-    "kicker": "What I make",
-    "title": "Video · Photo · Voiceover",
-    "lede": "Custom quote based on your goals and usage rights.",
-    "items": [
+    "kicker": "Services",
+    "title": "My services",
+    "sub": "UGC tailored to your goals."
+  },
+  "process": {
+    "kicker": "Process",
+    "title": "My 4-step process",
+    "steps": [
+      { "n": "01", "t": "Brief", "d": "We talk through your goals and audience." },
+      { "n": "02", "t": "Concept", "d": "I propose tailored creative angles." },
+      { "n": "03", "t": "Create", "d": "Shooting & editing of your UGC." },
+      { "n": "04", "t": "Delivery", "d": "Ready-to-publish content, on time." }
+    ]
+  },
+  "offers": {
+    "kicker": "Offers",
+    "title": "My offers",
+    "popular": "Most popular",
+    "footnote": "Indicative pricing. Every project is unique — let's discuss yours.",
+    "tiers": [
       {
-        "t": "Video UGC",
-        "d": "Testimonials, demos, unboxings, paid-ads hooks, mini vlogs. 15s to 60s, vertical."
+        "id": "starter",
+        "name": "Starter",
+        "tagline": "Perfect to test UGC",
+        "items": ["1 UGC video", "15 to 30 sec", "1 revision", "Delivered in 5 days"],
+        "price": "On request"
       },
       {
-        "t": "Photo UGC",
-        "d": "Lifestyle, product-in-use, flat lays, mood. For e-commerce, ads and social feeds."
+        "id": "growth",
+        "name": "Growth",
+        "tagline": "To boost your conversions",
+        "items": ["3 UGC videos", "15 to 30 sec", "2 revisions", "Delivered in 7 days"],
+        "price": "On request"
       },
       {
-        "t": "Voiceover",
-        "d": "Natural French voiceover. Built for ads and explainers."
-      },
-      {
-        "t": "Hook variations",
-        "d": "Multiple A/B openers to maximise scroll-stop on Meta and TikTok."
-      },
-      {
-        "t": "Raw footage",
-        "d": "Optional unedited rushes for your in-house creative team."
-      },
-      {
-        "t": "Monthly retainer",
-        "d": "Recurring production for brands testing creative continuously."
+        "id": "monthly",
+        "name": "Monthly Partner",
+        "tagline": "For a steady, performance-led flow",
+        "items": ["6 UGC videos / month", "15 to 30 sec", "Priority & unlimited revisions", "Continuous delivery"],
+        "price": "On request"
       }
     ]
   },
-  "materials": {
-    "kicker": "Setup",
-    "title": "My gear",
-    "capture": {
-      "t": "To capture",
-      "items": ["iPhone 16+", "Lumix TZ99", "GoPro Hero 8", "Ray-Ban Meta"]
-    },
-    "quality": {
-      "t": "For quality",
-      "items": ["Tripod", "Ring light", "2 wireless mics", "Stabiliser"]
-    }
-  },
   "contact": {
-    "kicker": "Let's talk",
-    "title_a": "Ready to make",
-    "title_emph": "your brand",
-    "title_b": "shine?",
-    "lede": "For a project, a quote, or just a quick chat — drop me a line.",
-    "email_label": "Email",
-    "email": "liloulemans@gmail.com",
+    "kicker": "Contact",
+    "title_a": "Ready for content that feels real —",
+    "title_emph": "and makes people buy?",
+    "cta": "Let's talk about your project",
     "ig_label": "Instagram",
     "ig": "@ugc.bylilou",
-    "based": "Based in Hyères (83) · Available across France and internationally",
-    "cta": "Send an email"
+    "email_label": "Email",
+    "email": "liloulemans@gmail.com",
+    "loc_label": "Location",
+    "loc": "Hyères (83)"
   },
   "footer": {
-    "tagline": "Mediterranean UGC, for real.",
-    "copyright": "© 2026 Lilou Fronteau. All rights reserved.",
+    "tagline": "UGC Creator",
+    "rights": "© 2026 Lilou Fronteau. All rights reserved.",
     "lang": "Language"
-  }
+  },
+  "projects_data": [
+    {
+      "id": "moment-bijoux",
+      "brand": "Moment Bijoux",
+      "niche_key": "beauty",
+      "category": "Jewelry",
+      "format": "Reels · TikTok",
+      "angle": "Unboxing · Lifestyle · Product",
+      "result": "+32% engagement"
+    },
+    {
+      "id": "melodie-hair",
+      "brand": "Mélodie Hair Expert",
+      "niche_key": "beauty",
+      "category": "Beauty",
+      "format": "Reels · Stories",
+      "angle": "Transformation · Before/After",
+      "result": "+41% bookings"
+    },
+    {
+      "id": "le-recif",
+      "brand": "Le Récif",
+      "niche_key": "food",
+      "category": "Restaurant",
+      "format": "Reels · TikTok",
+      "angle": "Mood · Food · Experience",
+      "result": "+28% profile visits"
+    },
+    {
+      "id": "esn",
+      "brand": "ESN Nutrition",
+      "niche_key": "wellness",
+      "category": "Nutrition",
+      "format": "Reels · Ads",
+      "angle": "Product demo · Routine",
+      "result": "+25% online sales"
+    },
+    {
+      "id": "azurial",
+      "brand": "Azurial Clothing",
+      "niche_key": "fashion",
+      "category": "Fashion",
+      "format": "Reels · Photos",
+      "angle": "Lookbook · Lifestyle",
+      "result": "+19% conversion"
+    },
+    {
+      "id": "azuria-skincare",
+      "brand": "Azuria Skincare",
+      "niche_key": "beauty",
+      "category": "Skincare",
+      "format": "Reels · Stories",
+      "angle": "Routine · Texture · Review",
+      "result": "+38% engagement"
+    }
+  ],
+  "services_data": [
+    {
+      "id": "face-camera",
+      "icon": "camera",
+      "title": "On Camera",
+      "body": "I speak to camera with ease, building real connection with your audience."
+    },
+    {
+      "id": "ugc-ads",
+      "icon": "play",
+      "title": "UGC Ads",
+      "body": "Short, punchy videos optimised to convert on TikTok, Reels & Ads."
+    },
+    {
+      "id": "voice-over",
+      "icon": "mic",
+      "title": "Voice-over",
+      "body": "Natural French voice-over, tone matched to your brand."
+    },
+    {
+      "id": "unboxing",
+      "icon": "box",
+      "title": "Unboxing",
+      "body": "Authentic staging of your products and packaging."
+    },
+    {
+      "id": "photo-lifestyle",
+      "icon": "image",
+      "title": "Lifestyle photos",
+      "body": "Natural, luminous photos aligned with your brand image."
+    },
+    {
+      "id": "hospitality",
+      "icon": "pin",
+      "title": "Restaurant / Hotel",
+      "body": "Content that captures the experience, mood and details of your venue."
+    }
+  ]
 }
