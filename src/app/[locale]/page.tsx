@@ -4,6 +4,7 @@ import { TrustBar } from "@/components/TrustBar";
 import { Bio } from "@/components/Bio";
 import { LocalHeroes } from "@/components/LocalHeroes";
 import { BrandCollabs } from "@/components/BrandCollabs";
+import { Testimonials } from "@/components/Testimonials";
 import { Process } from "@/components/Process";
 import { Services } from "@/components/Services";
 import { Materials } from "@/components/Materials";
@@ -16,6 +17,7 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const lang: "fr" | "en" = locale === "en" ? "en" : "fr";
 
   return (
     <>
@@ -24,6 +26,7 @@ export default async function HomePage({
       <Bio />
       <LocalHeroes />
       <BrandCollabs />
+      <Testimonials locale={lang} />
       <Process />
       <Services />
       <Materials />

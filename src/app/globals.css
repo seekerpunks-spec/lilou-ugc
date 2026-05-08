@@ -23,9 +23,10 @@
   --color-stone: #8a8076;
 
   --font-editorial: var(--font-editorial);
-  --font-display: var(--font-display);
   --font-sans: var(--font-sans);
   --font-hand: var(--font-hand);
+  /* Display alias: same as sans (Geist), used for tracked uppercase eyebrows */
+  --font-display: var(--font-sans);
 
   --radius-soft: 14px;
   --radius-card: 22px;

@@ -49,6 +49,13 @@
     "title_b": ".",
     "lede": "DTC e-commerce, French and international. Product demos, testimonials, hooks for paid social campaigns."
   },
+  "testimonials": {
+    "kicker": "Chapter 03",
+    "title_a": "What",
+    "title_emph": "brands say",
+    "title_b": ".",
+    "note": "Illustrative quotes · real ones lock in with the first campaign"
+  },
   "process": {
     "kicker": "How we work",
     "title": "From brief to delivery, in 4 beats.",

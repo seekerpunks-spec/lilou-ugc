@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Geist, Caveat, Bricolage_Grotesque } from "next/font/google";
+import { Instrument_Serif, Geist, Caveat } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale, getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -7,6 +7,9 @@ import { routing } from "@/i18n/routing";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { CursorFollower } from "@/components/CursorFollower";
+import { ReducedMotionProvider } from "@/components/ReducedMotionProvider";
 
 const editorial = Instrument_Serif({
   variable: "--font-editorial",
@@ -18,12 +21,6 @@ const editorial = Instrument_Serif({
 
 const sans = Geist({
   variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const display = Bricolage_Grotesque({
-  variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
 });
@@ -78,15 +75,19 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${editorial.variable} ${sans.variable} ${display.variable} ${hand.variable} antialiased`}
+      className={`${editorial.variable} ${sans.variable} ${hand.variable} antialiased`}
     >
       <body className="bg-sand text-ink min-h-screen">
         <NextIntlClientProvider messages={messages}>
-          <SmoothScroll>
-            <Nav />
-            <main>{children}</main>
-            <Footer />
-          </SmoothScroll>
+          <ReducedMotionProvider>
+            <SmoothScroll>
+              <ScrollProgress />
+              <CursorFollower />
+              <Nav />
+              <main>{children}</main>
+              <Footer />
+            </SmoothScroll>
+          </ReducedMotionProvider>
         </NextIntlClientProvider>
       </body>
     </html>
