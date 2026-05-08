@@ -83,7 +83,7 @@ export function VideoCard({
     const tryPlayUnmuted = async () => {
       try {
         el.muted = false;
-        el.volume = 1;
+        el.volume = 0.6;
         await el.play();
         setMuted(false);
         claimAudio(id);
@@ -159,7 +159,7 @@ export function VideoCard({
       setMuted(false);
       setUserMuted(false);
       el.muted = false;
-      el.volume = 1;
+      el.volume = 0.6;
       el.play().catch(() => undefined);
     } else {
       releaseAudio(id);
