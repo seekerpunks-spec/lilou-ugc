@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "title": "Lilou Fronteau — UGC Creator · French Riviera",
+    "description": "Authentic, scroll-stopping UGC for beauty, lifestyle and Mediterranean brands. Based in Hyères, France."
+  },
+  "nav": {
+    "work": "Work",
+    "process": "Process",
+    "services": "Services",
+    "contact": "Contact",
+    "bookCall": "Let's talk"
+  },
+  "hero": {
+    "kicker": "UGC Creator · 23 · Hyères 🌊",
+    "headline_a": "UGC that",
+    "headline_emph": "stops the scroll",
+    "headline_b": "from the French Riviera",
+    "sub": "Authentic video and photo for brands who want real, not advertorial. Mediterranean, polished, performance-led.",
+    "cta_primary": "See my work",
+    "cta_secondary": "Work with me",
+    "scroll": "Scroll"
+  },
+  "trustbar": {
+    "title": "Trusted by 20+ brands"
+  },
+  "bio": {
+    "tagline": "Hi, I'm Lilou.",
+    "p1": "23, based in Hyères on the French Riviera. I've spent the past two years building a signature that blends Mediterranean everyday authenticity with modern direct-response craft.",
+    "p2": "I shoot in French and English, with natural light, and I know how to turn a product into the hero of a 30-second story.",
+    "stat1_v": "20+",
+    "stat1_l": "brands",
+    "stat2_v": "FR · EN",
+    "stat2_l": "bilingual",
+    "stat3_v": "5d",
+    "stat3_l": "standard delivery",
+    "handnote": "with all my authenticity ✦"
+  },
+  "local": {
+    "kicker": "Chapter 01",
+    "title_a": "Local",
+    "title_emph": "Heroes",
+    "title_b": ".",
+    "lede": "Riviera businesses and craftspeople I've helped show up online. Restaurants, salons, bakeries — content shot on location, in the room."
+  },
+  "brands": {
+    "kicker": "Chapter 02",
+    "title_a": "Brand",
+    "title_emph": "Collabs",
+    "title_b": ".",
+    "lede": "DTC e-commerce, French and international. Product demos, testimonials, hooks for paid social campaigns."
+  },
+  "process": {
+    "kicker": "How we work",
+    "title": "From brief to delivery, in 4 beats.",
+    "steps": [
+      {
+        "n": "01",
+        "t": "Brief & quote",
+        "d": "We chat by email or video call. I learn your product, audience, goals. You get a clear quote and a timeline."
+      },
+      {
+        "n": "02",
+        "t": "Script & mood",
+        "d": "I propose 1–2 angles with hooks and direct-response structure. You sign off before we shoot."
+      },
+      {
+        "n": "03",
+        "t": "Shoot",
+        "d": "I shoot in natural light, on your product, with pro gear. You don't lift a finger."
+      },
+      {
+        "n": "04",
+        "t": "Delivery & feedback",
+        "d": "Final cut in 5 days. One revision included, usage rights defined upfront."
+      }
+    ]
+  },
+  "services": {
+    "kicker": "What I make",
+    "title": "Video · Photo · Voiceover",
+    "lede": "Custom quote based on your goals and usage rights.",
+    "items": [
+      {
+        "t": "Video UGC",
+        "d": "Testimonials, demos, unboxings, paid-ads hooks, mini vlogs. 15s to 60s, vertical."
+      },
+      {
+        "t": "Photo UGC",
+        "d": "Lifestyle, product-in-use, flat lays, mood. For e-commerce, ads and social feeds."
+      },
+      {
+        "t": "Voiceover",
+        "d": "Natural French voiceover. Built for ads and explainers."
+      },
+      {
+        "t": "Hook variations",
+        "d": "Multiple A/B openers to maximise scroll-stop on Meta and TikTok."
+      },
+      {
+        "t": "Raw footage",
+        "d": "Optional unedited rushes for your in-house creative team."
+      },
+      {
+        "t": "Monthly retainer",
+        "d": "Recurring production for brands testing creative continuously."
+      }
+    ]
+  },
+  "materials": {
+    "kicker": "Setup",
+    "title": "My gear",
+    "capture": {
+      "t": "To capture",
+      "items": ["iPhone 16+", "Lumix TZ99", "GoPro Hero 8", "Ray-Ban Meta"]
+    },
+    "quality": {
+      "t": "For quality",
+      "items": ["Tripod", "Ring light", "2 wireless mics", "Stabiliser"]
+    }
+  },
+  "contact": {
+    "kicker": "Let's talk",
+    "title_a": "Ready to make",
+    "title_emph": "your brand",
+    "title_b": "shine?",
+    "lede": "For a project, a quote, or just a quick chat — drop me a line.",
+    "email_label": "Email",
+    "email": "liloulemans@gmail.com",
+    "ig_label": "Instagram",
+    "ig": "@ugc.bylilou",
+    "based": "Based in Hyères (83) · Available across France and internationally",
+    "cta": "Send an email"
+  },
+  "footer": {
+    "tagline": "Mediterranean UGC, for real.",
+    "copyright": "© 2026 Lilou Fronteau. All rights reserved.",
+    "lang": "Language"
+  }
+}

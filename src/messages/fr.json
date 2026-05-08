@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "title": "Lilou Fronteau — Créatrice UGC · Côte d'Azur",
+    "description": "Contenu UGC authentique et scroll-stop pour marques beauté, lifestyle et commerces méditerranéens. Hyères, France."
+  },
+  "nav": {
+    "work": "Réalisations",
+    "process": "Process",
+    "services": "Services",
+    "contact": "Contact",
+    "bookCall": "Discutons"
+  },
+  "hero": {
+    "kicker": "Créatrice UGC · 23 ans · Hyères 🌊",
+    "headline_a": "L'UGC qui",
+    "headline_emph": "stoppe le scroll",
+    "headline_b": "depuis la Côte d'Azur",
+    "sub": "Je crée du contenu vidéo et photo authentique pour les marques qui veulent du vrai, pas du publicitaire. Méditerranéen, soigné, performant.",
+    "cta_primary": "Voir mes réalisations",
+    "cta_secondary": "Travailler ensemble",
+    "scroll": "Scroll"
+  },
+  "trustbar": {
+    "title": "Plus de 20 marques m'ont fait confiance"
+  },
+  "bio": {
+    "tagline": "Hello, moi c'est Lilou.",
+    "p1": "23 ans, basée à Hyères dans le Var. Passionnée de création de contenu, je construis depuis 2 ans une signature visuelle qui mélange l'authenticité du quotidien méditerranéen et les codes du direct-response moderne.",
+    "p2": "Je travaille en français comme en anglais, je tourne en lumière naturelle, et je sais comment faire d'un produit le héros d'une histoire en moins de 30 secondes.",
+    "stat1_v": "20+",
+    "stat1_l": "marques",
+    "stat2_v": "FR · EN",
+    "stat2_l": "bilingue",
+    "stat3_v": "5j",
+    "stat3_l": "livraison standard",
+    "handnote": "et avec toute mon authenticité ✦"
+  },
+  "local": {
+    "kicker": "Section 01",
+    "title_a": "Local",
+    "title_emph": "Heroes",
+    "title_b": ".",
+    "lede": "Les commerces et artisans de la Côte d'Azur que j'ai aidés à exister sur les réseaux. Restaurants, salons, boulangeries — du contenu fait sur place, en immersion."
+  },
+  "brands": {
+    "kicker": "Section 02",
+    "title_a": "Brand",
+    "title_emph": "Collabs",
+    "title_b": ".",
+    "lede": "E-commerces et marques DTC, en France comme à l'international. Démos produit, témoignages, hooks pour campagnes paid social."
+  },
+  "process": {
+    "kicker": "Comment on travaille",
+    "title": "Du brief à la livraison, en 4 temps.",
+    "steps": [
+      {
+        "n": "01",
+        "t": "Brief & devis",
+        "d": "On échange par mail ou en visio. J'apprends ton produit, ton public, tes objectifs. Tu reçois un devis clair et un planning."
+      },
+      {
+        "n": "02",
+        "t": "Script & mood",
+        "d": "Je propose 1 ou 2 angles avec hooks et structure direct-response. Tu valides avant tournage."
+      },
+      {
+        "n": "03",
+        "t": "Tournage",
+        "d": "Je tourne en lumière naturelle, sur ton produit, avec mon matériel pro. Tu ne gères rien."
+      },
+      {
+        "n": "04",
+        "t": "Livraison & retours",
+        "d": "Tu reçois la vidéo en 5 jours. Une révision incluse, droits définis dès le devis."
+      }
+    ]
+  },
+  "services": {
+    "kicker": "Ce que je crée",
+    "title": "Vidéo · Photo · Voix-off",
+    "lede": "Sur devis personnalisé selon tes objectifs et tes droits d'usage.",
+    "items": [
+      {
+        "t": "UGC vidéo",
+        "d": "Témoignages, démos produit, unboxings, hooks paid ads, vlogs courts. 15s à 60s, format vertical."
+      },
+      {
+        "t": "UGC photo",
+        "d": "Lifestyle, produit-en-usage, flat-lays, ambiance. Pour e-commerce, ads et feeds sociaux."
+      },
+      {
+        "t": "Voix-off",
+        "d": "Voix-off française naturelle. Idéale pour ads et explainers."
+      },
+      {
+        "t": "Hooks variations",
+        "d": "Plusieurs accroches A/B pour maximiser le scroll-stop sur Meta et TikTok."
+      },
+      {
+        "t": "Raw footage",
+        "d": "Rushs bruts livrés en option pour ton équipe créative."
+      },
+      {
+        "t": "Forfait mensuel",
+        "d": "Production récurrente pour marques en test continu d'ad creative."
+      }
+    ]
+  },
+  "materials": {
+    "kicker": "Setup",
+    "title": "Mon matériel",
+    "capture": {
+      "t": "Pour capturer",
+      "items": ["iPhone 16+", "Lumix TZ99", "GoPro Hero 8", "Ray-Ban Meta"]
+    },
+    "quality": {
+      "t": "Pour la qualité",
+      "items": ["Trépied", "Ring light", "2 micros sans-fil", "Stabilisateur"]
+    }
+  },
+  "contact": {
+    "kicker": "On se parle ?",
+    "title_a": "Prête à faire briller",
+    "title_emph": "ta marque",
+    "title_b": "?",
+    "lede": "Pour un projet, un devis ou juste prendre la température : envoie-moi un mot.",
+    "email_label": "Email",
+    "email": "liloulemans@gmail.com",
+    "ig_label": "Instagram",
+    "ig": "@ugc.bylilou",
+    "based": "Basée à Hyères (83) · Disponible en France et à l'international",
+    "cta": "Écrire un mail"
+  },
+  "footer": {
+    "tagline": "UGC méditerranéen, pour de vrai.",
+    "copyright": "© 2026 Lilou Fronteau. Tous droits réservés.",
+    "lang": "Langue"
+  }
+}
