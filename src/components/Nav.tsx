@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { LangSwitcher } from "./LangSwitcher";
+import { Monogram } from "./Monogram";
 import { cn } from "@/lib/cn";
 
 const links = [
@@ -35,14 +36,17 @@ export function Nav() {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-5 py-4 sm:px-8 sm:py-5">
         <a
           href="#top"
-          className="flex flex-col leading-[0.85] text-espresso"
+          className="flex items-center gap-3 text-espresso"
           aria-label="Lilou Fronteau"
         >
-          <span className="font-logo text-[2.6rem] tracking-tight text-espresso">
-            Lilou
-          </span>
-          <span className="font-sans text-[0.6rem] uppercase tracking-[0.42em] text-espresso/70">
-            Fronteau
+          <Monogram size={42} />
+          <span className="hidden flex-col leading-[0.85] sm:flex">
+            <span className="font-logo text-[1.9rem] tracking-tight text-espresso">
+              Lilou
+            </span>
+            <span className="font-sans text-[0.55rem] uppercase tracking-[0.42em] text-espresso/70">
+              Fronteau
+            </span>
           </span>
         </a>
 
