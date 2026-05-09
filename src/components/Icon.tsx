@@ -14,6 +14,7 @@ type IconKey =
   | "travel"
   | "lifestyle"
   | "instagram"
+  | "tiktok"
   | "mail"
   | "spark"
   | "arrow"
@@ -136,6 +137,13 @@ const paths: Record<IconKey, React.ReactNode> = {
       <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17" cy="7" r="0.7" fill="currentColor" stroke="none" />
+    </g>
+  ),
+  /* TikTok = stylised musical note hook */
+  tiktok: (
+    <g {...stroke}>
+      <path d="M14 3.5v10.2a3.6 3.6 0 11-3.6-3.6" />
+      <path d="M14 3.5c.4 2.6 2.2 4.4 4.8 4.6" />
     </g>
   ),
   mail: (

@@ -102,6 +102,9 @@
     "cta": "Let's talk about your project",
     "ig_label": "Instagram",
     "ig": "@ugc.bylilou",
+    "tiktok_label": "TikTok",
+    "tiktok": "@ugc.bylilou",
+    "tiktok_url": "https://www.tiktok.com/@ugc.bylilou",
     "email_label": "Email",
     "email": "liloulemans@gmail.com",
     "loc_label": "Location",
@@ -113,6 +116,24 @@
     "lang": "Language"
   },
   "projects_data": [
+    {
+      "id": "le-recif",
+      "brand": "Le Récif",
+      "niche_key": "food",
+      "category": "Restaurant",
+      "format": "Reels · TikTok",
+      "angle": "Mood · Food · Experience",
+      "result": "Restaurant traffic"
+    },
+    {
+      "id": "beauty-studio",
+      "brand": "Beauty Studio",
+      "niche_key": "beauty",
+      "category": "Makeup",
+      "format": "Reels · TikTok",
+      "angle": "Make-up demo · Pro tips",
+      "result": "Audience engagement"
+    },
     {
       "id": "moment-bijoux",
       "brand": "Moment Bijoux",
@@ -130,15 +151,6 @@
       "format": "Reels · Stories",
       "angle": "Transformation · Before/After",
       "result": "Bookings"
-    },
-    {
-      "id": "le-recif",
-      "brand": "Le Récif",
-      "niche_key": "food",
-      "category": "Restaurant",
-      "format": "Reels · TikTok",
-      "angle": "Mood · Food · Experience",
-      "result": "Restaurant traffic"
     },
     {
       "id": "esn",
@@ -211,6 +223,15 @@
       "format": "Reels · TikTok",
       "angle": "Local shop spotlight",
       "result": "Shop traffic"
+    },
+    {
+      "id": "electro-symphony",
+      "brand": "Electro Symphony",
+      "niche_key": "lifestyle",
+      "category": "Event",
+      "format": "Reels · TikTok",
+      "angle": "Live · Sensory · Concert",
+      "result": "Event coverage"
     }
   ],
   "services_data": [

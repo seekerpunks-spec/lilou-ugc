@@ -53,16 +53,29 @@ export function Contact() {
 
         {/* Info row */}
         <ul className="grid grid-cols-2 items-center gap-6 px-1 text-sm text-espresso/85 sm:grid-cols-4 sm:gap-4 sm:px-2">
-          <li className="flex items-center gap-2.5">
-            <Icon name="instagram" className="h-5 w-5 text-coral" />
-            <a
-              href={`https://instagram.com/${t("ig").replace("@", "")}`}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="underline-offset-4 hover:underline"
-            >
-              {t("ig")}
-            </a>
+          <li className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span className="flex items-center gap-2.5">
+              <Icon name="instagram" className="h-5 w-5 text-coral" />
+              <a
+                href={`https://instagram.com/${t("ig").replace("@", "")}`}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="underline-offset-4 hover:underline"
+              >
+                {t("ig")}
+              </a>
+            </span>
+            <span className="flex items-center gap-2.5">
+              <Icon name="tiktok" className="h-5 w-5 text-coral" />
+              <a
+                href={t("tiktok_url")}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="underline-offset-4 hover:underline"
+              >
+                {t("tiktok")}
+              </a>
+            </span>
           </li>
           <li className="flex items-center gap-2.5">
             <Icon name="mail" className="h-5 w-5 text-coral" />

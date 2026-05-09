@@ -49,6 +49,16 @@ export const projectMedia: Record<string, ProjectMedia> = {
     video: video("30bfd0c4f4924c5c6c0e97a0c720a6fb.mp4"),
     alt: "Le Récif — restaurant ambiance",
   },
+  "beauty-studio": {
+    poster: poster("dm-collab-1.jpg"),
+    video: video("dm-collab-1.mp4"),
+    alt: "Beauty Studio — séance maquillage",
+  },
+  "electro-symphony": {
+    poster: poster("dm-collab-2.jpg"),
+    video: video("dm-collab-2.mp4"),
+    alt: "Electro Symphony — concert événement",
+  },
   esn: {
     poster: poster("32432306587414aa3448e93508736a55.jpg"),
     video: video("7ed2f21c40e0f656809ed5925aa6d343.mp4"),
