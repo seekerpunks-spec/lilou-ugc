@@ -135,6 +135,15 @@
       "result": "Audience engagement"
     },
     {
+      "id": "electro-symphony",
+      "brand": "Electro Symphony",
+      "niche_key": "lifestyle",
+      "category": "Event",
+      "format": "Reels · TikTok",
+      "angle": "Live · Sensory · Concert",
+      "result": "Event coverage"
+    },
+    {
       "id": "moment-bijoux",
       "brand": "Moment Bijoux",
       "niche_key": "beauty",
@@ -223,15 +232,6 @@
       "format": "Reels · TikTok",
       "angle": "Local shop spotlight",
       "result": "Shop traffic"
-    },
-    {
-      "id": "electro-symphony",
-      "brand": "Electro Symphony",
-      "niche_key": "lifestyle",
-      "category": "Event",
-      "format": "Reels · TikTok",
-      "angle": "Live · Sensory · Concert",
-      "result": "Event coverage"
     }
   ],
   "services_data": [
