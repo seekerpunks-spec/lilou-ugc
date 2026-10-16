@@ -8,6 +8,8 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { ReducedMotionProvider } from "@/components/ReducedMotionProvider";
+import { Analytics } from "@vercel/analytics/next";
+import { SITE_URL, localePath } from "@/lib/site";
 
 const serif = Playfair_Display({
   variable: "--font-serif",
@@ -49,15 +51,40 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
+  const ogImage = {
+    url: "/og-image.jpg",
+    width: 1200,
+    height: 630,
+    alt: t("title"),
+  };
   return {
     title: t("title"),
     description: t("description"),
-    metadataBase: new URL("https://ugcbylilou.com"),
+    // NOTE: ugcbylilou.com is not registered yet — buy it and attach it in
+    // Vercel, otherwise absolute canonical/OG URLs point to a dead domain.
+    metadataBase: new URL(SITE_URL),
+    alternates: {
+      canonical: localePath(locale),
+      languages: {
+        fr: localePath("fr"),
+        en: localePath("en"),
+        "x-default": localePath("fr"),
+      },
+    },
     openGraph: {
       title: t("title"),
       description: t("description"),
       type: "website",
-      locale,
+      locale: locale === "fr" ? "fr_FR" : "en_GB",
+      url: localePath(locale),
+      siteName: "Lilou Fronteau",
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: [ogImage.url],
     },
   };
 }
@@ -91,6 +118,7 @@ export default async function LocaleLayout({
               <main>{children}</main>
               <Footer />
             </SmoothScroll>
+            <Analytics />
           </ReducedMotionProvider>
         </NextIntlClientProvider>
       </body>
