@@ -42,7 +42,7 @@ export function Contact() {
               <em className="italic">{t("title_emph")}</em>
             </h2>
             <a
-              href={`mailto:${t("email")}`}
+              href={`mailto:${t("email")}?subject=${encodeURIComponent(t("mail_subject"))}`}
               className="inline-flex w-fit items-center gap-2.5 rounded-full bg-paper px-6 py-3 text-sm font-medium text-coral shadow-soft transition-all hover:-translate-y-0.5 hover:bg-cream"
             >
               {t("cta")}

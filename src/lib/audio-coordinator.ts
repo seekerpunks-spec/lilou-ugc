@@ -6,7 +6,7 @@
  * - `releaseAudio(id)` — clear active id when this card mutes/unmounts.
  * - `unlockAudio()`   — call after a user gesture so future center
  *                        cards may attempt unmuted autoplay.
- * - `isAudioUnlocked()` — true once any user gesture occurred.
+ * - `isAudioUnlocked()` — true once the visitor explicitly enabled sound.
  */
 
 type Subscriber = (isActive: boolean) => void;
@@ -15,16 +15,10 @@ let activeId: string | null = null;
 let unlocked = false;
 const subs = new Map<string, Subscriber>();
 
-if (typeof window !== "undefined") {
-  // Any pointer/key gesture counts as user intent → unlock audio for the session
-  const onGesture = () => {
-    unlocked = true;
-    window.removeEventListener("pointerdown", onGesture);
-    window.removeEventListener("keydown", onGesture);
-  };
-  window.addEventListener("pointerdown", onGesture, { once: true });
-  window.addEventListener("keydown", onGesture, { once: true });
-}
+// Sound is opt-in only: `unlocked` flips to true exclusively when the
+// visitor explicitly turns sound on via a card's speaker button
+// (`claimAudio`). A random click/keypress elsewhere on the page no longer
+// makes the next Reel autoplay with sound.
 
 export function registerAudio(id: string, cb: Subscriber) {
   subs.set(id, cb);
