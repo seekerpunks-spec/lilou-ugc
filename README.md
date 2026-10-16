@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lilou Fronteau — portfolio UGC
 
-## Getting Started
+Site vitrine de **Lilou Fronteau**, créatrice UGC basée à Hyères (83) : présentation, carrousel de 13 Reels, services, process, offres et contact.
 
-First, run the development server:
+- Production : https://lilou-ugc.vercel.app (domaine cible : `ugcbylilou.com`, **pas encore acheté**)
+- Langues : français (par défaut, `/`) et anglais (`/en`)
+
+## Stack
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack) + React 19, TypeScript
+- Tailwind CSS 4
+- [next-intl](https://next-intl.dev) pour le FR/EN (`localePrefix: "as-needed"`)
+- [Motion](https://motion.dev) pour les animations, [Lenis](https://lenis.darkroom.engineering) pour le smooth scroll
+- [@vercel/analytics](https://vercel.com/docs/analytics) (actif seulement si Web Analytics est activé sur le projet Vercel)
+
+## Structure
+
+| Chemin | Rôle |
+| --- | --- |
+| `src/app/[locale]/` | layout (metadata, SEO, analytics) et page d'accueil |
+| `src/app/robots.ts`, `src/app/sitemap.ts` | `robots.txt` et `sitemap.xml` |
+| `src/app/icon.tsx`, `apple-icon.tsx` | favicons générés (monogramme LF) |
+| `src/components/` | sections : Hero, About, Projects, Services, Process, Offers, Contact… |
+| `src/messages/fr.json`, `en.json` | **tous les textes** (copy, prix, contact) |
+| `src/data/images.ts` | photos, posters et vidéos de chaque projet |
+| `src/lib/site.ts` | URL du site (`SITE_URL`) utilisée pour canonical / OG / sitemap |
+| `public/videos/` | Reels en **H.264 + AAC** (lisibles partout) |
+| `public/og-image.jpg` | image de partage 1200×630 |
+
+## Développement
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # build de production
+npm run start   # sert le build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Ajouter / remplacer un Reel
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Encoder en H.264 (pas en HEVC seul, illisible sur Firefox / beaucoup de PC) :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+ffmpeg -i input.mov -c:v libx264 -preset slow -crf 26 -maxrate 2500k -bufsize 5000k \
+  -profile:v high -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart public/videos/nom.mp4
+```
 
-## Learn More
+Puis ajouter le poster dans `public/posters/` et l'entrée dans `src/data/images.ts`.
 
-To learn more about Next.js, take a look at the following resources:
+## Déploiement
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Projet Vercel `lilou-ugc` : chaque push sur `main` déploie en production, chaque PR obtient une preview.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## TODO
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Acheter `ugcbylilou.com`, l'ajouter au projet Vercel. Tant que ce n'est pas fait, les URLs absolues (canonical, `og:image`, sitemap) pointent vers un domaine inexistant.
+- [ ] Activer Web Analytics dans le dashboard Vercel.
+- [ ] Vérifier l'aperçu de partage (Instagram / WhatsApp / iMessage) une fois le domaine en ligne.
