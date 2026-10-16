@@ -25,9 +25,9 @@ interface VideoCardProps {
    */
   paused?: boolean;
   /**
-   * When true, attempts to autoplay with sound as soon as the card
-   * enters the viewport. Falls back to muted autoplay if the browser
-   * blocks unmuted autoplay (no prior user gesture).
+   * When true, autoplays (muted) as soon as the card enters the viewport.
+   * Plays with sound only if the visitor already opted in via a speaker
+   * button; falls back to muted if the browser blocks it.
    */
   audible?: boolean;
 }
@@ -112,12 +112,12 @@ export function VideoCard({
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (userMuted) {
-            tryPlayMuted();
-          } else if (isAudioUnlocked()) {
+          // Start muted by default; only continue with sound once the
+          // visitor has explicitly enabled it with a speaker button.
+          if (!userMuted && isAudioUnlocked()) {
             tryPlayUnmuted();
           } else {
-            tryPlayUnmuted(); // attempt; falls back to muted on rejection
+            tryPlayMuted();
           }
         } else {
           el.pause();
